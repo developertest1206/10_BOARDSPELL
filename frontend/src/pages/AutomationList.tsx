@@ -89,7 +89,7 @@ const AutomationList: React.FC<Props> = ({ workspaceId }) => {
       <div style={{ fontSize: 48, marginBottom: 16 }}>⚠️</div>
       <h3 style={{ color: '#172B4D', margin: '0 0 8px' }}>Connection Error</h3>
       <p style={{ color: '#6B778C', margin: '0 0 24px' }}>{error}</p>
-      <a href="http://localhost:3000/oauth/start"
+      <a href="https://one0-boardspell.onrender.com/oauth/start"
         style={{ ...s.primaryBtn, textDecoration: 'none', display: 'inline-block' }}>
         🔗 Connect to monday.com
       </a>
