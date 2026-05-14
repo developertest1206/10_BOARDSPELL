@@ -1,0 +1,15 @@
+# Python virtual environment — never push this (it's huge)
+venv/
+
+# Python cache files — auto-generated, not needed
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables — contains secrets, NEVER push
+.env
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
