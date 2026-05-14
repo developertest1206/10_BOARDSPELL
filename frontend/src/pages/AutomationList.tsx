@@ -39,9 +39,20 @@ const AutomationList: React.FC<Props> = ({ workspaceId }) => {
     }
   };
 
+  // AFTER — moves load inside useEffect, no warning
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    load();
+      const fetchData = async () => {
+          try {
+              setLoading(true);
+              const data = await getAutomations(workspaceId);
+              setAutomations(data);
+          } catch (e: any) {
+              setError(e.message);
+          } finally {
+              setLoading(false);
+          }
+      };
+      fetchData();
   }, [workspaceId]);
 
   // Toggle automation between active and paused
