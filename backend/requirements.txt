@@ -34,3 +34,5 @@ python-multipart==0.0.9
 
 # PyJWT: used to decode the monday.com access token
 PyJWT==2.9.0
+
+debugpy==1.8.20
