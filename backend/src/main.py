@@ -9,6 +9,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
+import os
+import logging
 
 # Import database connection helpers
 from src.models.db import connect_db, disconnect_db
@@ -18,6 +20,20 @@ from src.routes import oauth, webhooks, automations, monday
 
 load_dotenv()
 
+
+# ── Debug / Logging setup ───────────────────────────────────
+DEBUG     = os.getenv("DEBUG", "false").lower() == "true"
+LOG_LEVEL = os.getenv("LOG_LEVEL", "info").upper()
+
+# This makes all print/log statements show more detail when DEBUG=true
+logging.basicConfig(
+    level=getattr(logging, LOG_LEVEL, logging.INFO),
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+)
+logger = logging.getLogger("boardspell")
+
+if DEBUG:
+    logger.debug("🐛 Debug mode is ON")
 
 # ── App Lifecycle ─────────────────────────────────────────────────────────────
 @asynccontextmanager
