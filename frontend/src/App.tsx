@@ -11,6 +11,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import mondaySdk from 'monday-sdk-js'; 
 import Header          from './components/Header';
 import AutomationList  from './pages/AutomationList';
 import AutomationBuilder from './pages/AutomationBuilder';
@@ -19,40 +20,27 @@ import ExecutionLogs   from './pages/ExecutionLogs';
 // ── Change this to YOUR workspace ID for local development ────────────────────
 // Get it by going to http://localhost:3000/oauth/start and authorizing
 const DEFAULT_WORKSPACE_ID = '34981119';
+const monday = mondaySdk();
+
+
 
 function App() {
   const [workspaceId, setWorkspaceId] = useState<string>(DEFAULT_WORKSPACE_ID);
   const [loading, setLoading]         = useState(true);
 
   useEffect(() => {
-    /**
-     * Try to get workspace ID from monday.com SDK context.
-     * This works when the app is loaded inside monday.com as a Board View.
-     * Falls back to DEFAULT_WORKSPACE_ID when running on localhost.
-     */
-    try {
-      const monday = (window as any).mondaySdk?.() || null;
-
-      if (monday) {
-        monday.get('context')
-          .then((res: any) => {
-            const accountId = res?.data?.account?.id;
-            if (accountId) {
-              setWorkspaceId(String(accountId));
-              console.log(`✅ monday.com workspace detected: ${accountId}`);
-            }
-          })
-          .catch(() => {
-            console.log('⚠️ Running outside monday.com — using default workspace ID');
-          })
-          .finally(() => setLoading(false));
-      } else {
-        // Not inside monday.com — use default workspace ID for local dev
-        setLoading(false);
-      }
-    } catch {
-      setLoading(false);
-    }
+    monday.get('context')
+      .then((res: any) => {
+        const accountId = res?.data?.account?.id;
+        if (accountId) {
+          setWorkspaceId(String(accountId));
+          console.log(`✅ monday.com workspace detected: ${accountId}`);
+        }
+      })
+      .catch(() => {
+        console.log('⚠️ Running outside monday.com — using default workspace ID');
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   // Show loading spinner while detecting workspace

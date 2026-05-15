@@ -18,7 +18,8 @@
     "jsx": "react-jsx",
     "ignoreDeprecations": "5.0",
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+    "types": ["vite/client"]
   },
   "include": ["src"]
 }
