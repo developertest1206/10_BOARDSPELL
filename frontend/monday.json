@@ -1,0 +1,9 @@
+{
+  "clientId": "11251781",
+  "appVersionId": "14517941",
+  "appFeatureId": "20651670",
+  "deployment": {
+    "type": "cdn",
+    "buildPath": "./build"
+  }
+}
